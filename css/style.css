@@ -1,0 +1,564 @@
+@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap");
+
+/**********************
+* TABLE OF CONTENT
+* ================
+* 1.GENERAL STYLES
+* 2.CHANGE IN BULMA STYLE
+* 3.MENU
+* 4.BANNER
+* 5.MAIN-CONTENT
+* 6.WEATHER
+*   6A. SNOW
+*   6B. RAIN
+*   6C. SUNNY 
+* 7.MAIN BACKGROUND-CHANGE THROUGH JS   
+* 8.MEDIA-QUERY CSS
+**********************/
+
+/* 1. GENERAL STYLES */
+html {
+  box-sizing: border-box;
+}
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+body {
+  font: normal 1.2em/1.4 "Josefin Sans", sans-serif;
+  margin: 0;
+  color: #000000;
+}
+input::placeholder {
+  font-family: "Josefin Sans", sans-serif;
+}
+button {
+  font-family: "Josefin Sans", sans-serif;
+}
+:focus-visible {
+  outline: none;
+}
+
+/* 2. CHANGE IN BULMA STYLE */
+.field.has-addons.field-center {
+  justify-content: center;
+}
+.column {
+  text-align: left;
+}
+.content ul {
+  margin-left: 0;
+}
+.card {
+  background-color: transparent;
+  height: 100%;
+}
+.hero-body {
+  z-index: 2;
+}
+.navbar-item img {
+  max-height: 3.75rem;
+}
+.hero.is-success a.logo:hover {
+  background-color: transparent;
+}
+.hero.is-success {
+  background-color: #000000;
+}
+a.navbar-item:focus,
+a.navbar-item:focus-within {
+  background-color: transparent;
+}
+
+/* 3. MAIN */
+/* NAVBAR ANIMATION EFFECT */
+.hero.is-success .navbar-menu a {
+  position: relative;
+  border: 2px solid transparent;
+}
+.hero.is-success .navbar-menu a:hover,
+.hero.is-success .navbar-menu a:active,
+.hero.is-success .navbar-menu a.nav-active {
+  border-image-source: linear-gradient(
+    0deg,
+    rgba(37, 173, 245, 1) 0%,
+    rgba(242, 129, 39, 1) 50%,
+    rgba(250, 203, 50, 1) 100%
+  );
+  border-image-slice: 1;
+  z-index: 1;
+  transition: all 2s;
+  background-color: transparent;
+}
+.navbar-item {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+.navbar {
+  padding: 0.5em 0;
+}
+.navbar-burger {
+  color: #ffffff;
+}
+
+/* 3. BANNER*/
+#banner-text {
+  padding: 2em 0;
+}
+.full-background {
+  z-index: 0;
+  overflow: hidden;
+  position: relative;
+}
+
+/* 4. MAIN CONTENT */
+#body-wrapper {
+  z-index: 1;
+}
+#main-content {
+  padding: 2em 0;
+}
+#weather-column .content h3 {
+  margin-top: 0;
+  font-size: 3em;
+  margin-bottom: 0.1em;
+}
+#weather-column .content .weather-condition {
+  font-size: 2em;
+}
+.hourly-forecast.card {
+  background-color: #ffffff;
+  margin-bottom: 5em;
+}
+.temp-other-info ul {
+  text-align: center;
+}
+.temp-other-info ul li {
+  background-color: rgb(255 255 255 / 62%);
+  border-radius: 10px;
+  display: inline-block;
+  margin: 0 0.5em;
+  padding: 0.2em;
+  text-align: center;
+}
+.temp-other-info ul li h4,
+.temp-other-info ul li p {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.hourly-forecast ul li {
+  display: inline-block;
+  padding: 0.4em;
+}
+.hourly-forecast img:hover {
+  animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+.hourly-forecast ul {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+#weather-column .column:hover {
+  box-shadow: 0px 0px 6px 6px rgba(254, 254, 254, 0.3);
+  border-radius: 10px;
+}
+
+@keyframes shake {
+  10%,
+  90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+  20%,
+  80% {
+    transform: translate3d(2px, 0, 0);
+  }
+  30%,
+  50%,
+  70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+  40%,
+  60% {
+    transform: translate3d(4px, 0, 0);
+  }
+}
+
+/* 5. WEATHER */
+
+/* 5A. SNOW */
+.block-snow-wrapper {
+  width: 100%;
+  background: url("../image/background-block-snow.jpg") no-repeat;
+  background-size: cover;
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+}
+.block-snow,
+.block-snow::after,
+.block-snow::before {
+  content: "";
+  top: -250px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: absolute;
+  background-image: radial-gradient(4px 4px at 50px 25px, #ffffff, transparent),
+    radial-gradient(6px 6px at 100px 75px, #ffffff, transparent),
+    radial-gradient(3px 3px at 150px 125px, #ffffff, transparent),
+    radial-gradient(4px 4px at 200px 175px, #ffffff, transparent),
+    radial-gradient(6px 6px at 250px 225px, #ffffff, transparent),
+    radial-gradient(3px 3px at 25px 50px, #ffffff, transparent),
+    radial-gradient(4px 4px at 75px 100px, #ffffff, transparent),
+    radial-gradient(6px 6px at 125px 150px, #ffffff, transparent),
+    radial-gradient(3px 3px at 175px 200px, #ffffff, transparent);
+  background-size: 250px 250px;
+  animation: blockScreenSnowAnimation 2s linear infinite;
+}
+.block-snow::after {
+  margin-left: -250px;
+  opacity: 0.5;
+  filter: blur(2px);
+  animation-direction: reverse;
+  animation-duration: 4s;
+}
+.block-snow::before {
+  margin-left: -350px;
+  opacity: 0.7;
+  filter: blur(1px);
+  animation-direction: reverse;
+  animation-duration: 6s;
+}
+
+@keyframes blockScreenSnowAnimation {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(250px);
+  }
+}
+
+/* 5B. RAIN */
+.block-rainy {
+  position: relative;
+  background: url("../image/background-block-rainy.jpg") no-repeat;
+  width: 100%;
+  background-size: cover;
+  overflow: hidden;
+  border-radius: 10px;
+}
+.block-rainy::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url("../image/rain.png");
+  animation: rain 0.2s linear infinite;
+}
+.cloud {
+  width: 200px;
+  height: 60px;
+  background: #fff;
+  border-radius: 200px;
+  position: absolute;
+}
+.cloud:before {
+  content: "";
+  position: absolute;
+  background: #fff;
+  width: 100px;
+  height: 80px;
+  top: -15px;
+  left: 10px;
+  border-radius: 100px;
+  transform: rotate(30deg);
+}
+.cloud:after {
+  content: "";
+  position: absolute;
+  background: #ffffff;
+  width: 120px;
+  height: 120px;
+  top: -55px;
+  left: auto;
+  right: 15px;
+  border-radius: 100px;
+  transform: rotate(30deg);
+}
+.cloud.x1::before {
+  background: #bfd6d8;
+}
+.cloud.x1::after {
+  background: #bfd6d8;
+}
+.x2 {
+  top: 3px;
+  left: 0;
+  transform: scale(0.7);
+  opacity: 0.8;
+  animation: moveclouds 35s linear infinite;
+}
+.x3 {
+  top: 20px;
+  left: 100px;
+  transform: scale(0.5);
+  opacity: 0.7;
+  animation: moveclouds 20s linear infinite;
+}
+.x1 {
+  left: 4px;
+  top: 36px;
+  transform: scale(0.8);
+  opacity: 0.5;
+  animation: thunder 4s linear 0.02s infinite alternate,
+    moveclouds 15s linear infinite;
+  background: #bfd6d8;
+}
+
+@keyframes moveclouds {
+  0% {
+    left: 0;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+@keyframes thunder {
+  0% {
+    box-shadow: 0 0 25px #fff;
+  }
+  2% {
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
+  }
+  49% {
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 25px #fff;
+  }
+  52% {
+    box-shadow: 0 0 25px #f7db6e;
+  }
+  53% {
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
+  }
+  69% {
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
+  }
+  70% {
+    box-shadow: 0 0 25px #fff;
+  }
+  71% {
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
+  }
+  75% {
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
+  }
+  76% {
+    box-shadow: 0 0 25px #fff;
+  }
+  77% {
+    box-shadow: 0 0 25px #a8d3f0;
+  }
+  78% {
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
+  }
+  100% {
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
+  }
+}
+
+@keyframes rain {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 20% 100%;
+  }
+}
+
+/* 5C. SUNNY */
+.block-sunny {
+  width: 100%;
+  background: url("../image/background-block-sunny.jpg") no-repeat;
+  background-size: cover;
+  overflow: hidden;
+  position: relative;
+  border-radius: 10px;
+}
+.sunny {
+  position: absolute;
+  right: 15%;
+  width: 5rem;
+  height: 5rem;
+  margin-top: 4rem;
+  top: -27px;
+  z-index: 0;
+}
+.sunny::before {
+  content: "";
+  position: absolute;
+  height: 80%;
+  width: 80%;
+  top: 13%;
+  right: 8px;
+  border-radius: 50%;
+  z-index: 2;
+  background-color: #fecc03;
+  background-image: radial-gradient(#fecc03, #f39c12);
+  box-shadow: 0 0 25px #917508;
+}
+.sunny::after {
+  content: "";
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  border-radius: 50%;
+  z-index: 1;
+  background-color: #f39c12;
+  /* will-change: opacity, transform; */
+  animation: fadeIn 1s linear infinite reverse,
+    scaleDown 1s linear infinite reverse;
+}
+.bird {
+  background-image: url("../image/bird-cells-new.svg");
+  background-size: auto 100%;
+  width: 88px;
+  height: 125px;
+  animation-name: fly-cycle;
+  animation-timing-function: steps(10);
+  animation-iteration-count: infinite;
+}
+.bird-one {
+  animation-duration: 1s;
+  animation-delay: -0.5s;
+}
+.bird-two {
+  animation-duration: 0.9s;
+  animation-delay: -0.75s;
+}
+.bird-container {
+  position: absolute;
+  top: 20%;
+  left: -10%;
+  transform: scale(0) translateX(-10vw);
+  animation-name: fly-right-one;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+.bird-container-one {
+  animation-duration: 15s;
+  animation-delay: 0s;
+}
+.bird-container-two {
+  animation-duration: 16s;
+  animation-delay: 1s;
+}
+
+@keyframes fly-cycle {
+  100% {
+    background-position: -900px 0;
+  }
+}
+
+@keyframes fly-right-one {
+  0% {
+    transform: scale(0.3) translateX(-10vw);
+  }
+
+  10% {
+    transform: translateY(2vh) translateX(10vw) scale(0.4);
+  }
+
+  20% {
+    transform: translateY(0vh) translateX(30vw) scale(0.5);
+  }
+
+  30% {
+    transform: translateY(4vh) translateX(50vw) scale(0.6);
+  }
+
+  40% {
+    transform: translateY(2vh) translateX(70vw) scale(0.6);
+  }
+
+  50% {
+    transform: translateY(0vh) translateX(90vw) scale(0.6);
+  }
+
+  60% {
+    transform: translateY(0vh) translateX(110vw) scale(0.6);
+  }
+
+  100% {
+    transform: translateY(0vh) translateX(110vw) scale(0.6);
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes scaleDown {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0.8);
+  }
+}
+
+/* 6.MAIN BACKGROUND-CHANGE THROUGH JS */
+.background-rain::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url("../image/rain.png");
+  animation: rain 0.2s linear infinite;
+}
+.background-sunny {
+  background: url("../image/sun-background.jpg") no-repeat;
+  background-size: cover;
+}
+
+/* 7.FOOTER */
+#footer {
+  text-align: center;
+}
+
+/* 8.MEDIA-QUERY CSS */
+@media screen and (max-width: 1023px) {
+  .hero.is-success .navbar-menu {
+    background: linear-gradient(
+      0deg,
+      rgba(37, 173, 245, 1) 0%,
+      rgba(242, 129, 39, 1) 50%,
+      rgba(250, 203, 50, 1) 100%
+    );
+  }
+
+  .hero.is-success .navbar-menu a:hover,
+  .hero.is-success .navbar-menu a:active,
+  .hero.is-success .navbar-menu a.nav-active,
+  .hero.is-success .navbar-menu a {
+    border-top-width: 0;
+    border-left-width: 0;
+    border-right-width: 0;
+  }
+}
